@@ -1,0 +1,91 @@
+#include<iostream>
+
+using namespace std;
+class node
+{
+    public:
+    int data;
+    node* next;
+    
+    node(int val)
+    {
+        data=val;
+        next=NULL;
+    }
+    
+};
+void display(node* &head)
+{
+    node* temp=head;
+    while(temp !=NULL)
+    {
+        cout<<"->";
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+void insert(node* &head,int data)
+{
+    node*n=new node(data);
+    if(head==NULL)
+    {
+        head=n;
+        return;
+    }
+    node* temp=head;
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+    }
+    temp->next=n;
+}
+void delet(node* &head , int pos)
+{
+    node*temp=head;
+    node*prev=head;
+    for(int i=0;i<pos;i++)
+    {
+        if(i==0&&pos==1)
+        {
+            temp=temp->next;
+            prev->next=temp->next;
+            free(temp);
+        }
+        else
+        {
+            if(i==pos-1&&temp!=0)
+            {
+                temp=temp->next;
+                prev->next=temp->next;
+                free(temp);
+            }
+            else
+            {
+                prev=temp;
+                if(prev==NULL)
+                {
+                    break;
+                }
+                temp=temp->next;
+                prev=prev->next;
+            }
+        }
+    }
+}
+int main()
+{
+    
+    node* obj=NULL;
+    int n;
+    insert(obj,1);
+    insert(obj,2);
+    insert(obj,3);
+    insert(obj,4);
+    insert(obj,5);
+    display (obj);
+    cout<<"\n";
+    cin>>n;
+    delet(obj, n);
+    display(obj);
+    return 0;
+}
